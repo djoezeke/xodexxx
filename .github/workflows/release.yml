@@ -80,8 +80,8 @@ jobs:
         with:
           draft: true
           name: Xodex ${{ steps.ver.outputs.VER }} release
-          tag_name: ${{ contains(steps.ver.outputs.VER, 'dev') }}
+          tag_name: ${{ github.ref_name }}
           prerelease: ${{ contains(steps.ver.outputs.VER, 'dev') }}
-          target_commitish: ${{ github.ref_name }}
+          # target_commitish: ${{ github.ref_name }}
           generate_release_notes: true
           files: dist/*
