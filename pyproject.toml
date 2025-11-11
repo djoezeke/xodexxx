@@ -31,7 +31,7 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Topic :: Software Development :: Application Frameworks",
 ]
-license = "MIT License"
+license = "MIT"
 license-files = ["LICEN[CS]E*"]
 dependencies = ["pillow>=11.3.0", "pygame>=2.6.1"]
 
