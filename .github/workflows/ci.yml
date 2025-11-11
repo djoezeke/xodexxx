@@ -31,16 +31,11 @@ jobs:
       - name: Set up Python ${{ matrix.python-version }}
         uses: astral-sh/setup-uv@v6
         with:
-          enable-cache: true
-          prune-cache: false
-
-      - uses: actions/setup-python@v5
-        with:
           python-version: ${{ matrix.python-version }}
 
       - name: Install Xodex dependencies
         run: |
-          uv sync --frozen
+          uv sync
 
       - name: Xodex Ruff Formatting.
         run: uv run --dev ruff format --check --diff
