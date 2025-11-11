@@ -1,0 +1,122 @@
+[build-system]
+requires = ["uv_build>=0.8.15,<0.9.0"]
+build-backend = "uv_build"
+
+[project]
+name = "xodex"
+version = "0.1.0"
+description = "A simple framework for building complex interactive applications.."
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{ name = "Sackey Ezekiel Etrue", email = "sackeyetrue@gmail.com" }]
+maintainers = [
+  { name = "Sackey Ezekiel Etrue", email = "sackeyetrue@gmail.com" },
+]
+keywords = [
+  "pygame",
+  "game engine",
+  "2d",
+  "xodex",
+  "games",
+  "engine",
+  "framework",
+]
+classifiers = [
+  "Typing :: Typed",
+  "Topic :: Multimedia :: Graphics",
+  "Programming Language :: Python",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "License :: OSI Approved :: MIT License",
+  "Topic :: Software Development :: Application Frameworks",
+]
+license = "MIT License"
+license-files = ["LICEN[CS]E*"]
+dependencies = ["pillow>=11.3.0", "pygame>=2.6.1"]
+
+[project.scripts]
+xodex = "xodex.__main__:execute_from_command_line"
+
+[project.urls]
+Homepage = "https://github.com/djoezeke/xodex"
+Documentation = "https://github.com/djoezeke/xodex#readme"
+Issues = "https://github.com/djoezeke/xodex/issues"
+"Release Notes" = "https://github.com/djoezeke/xodex/releases"
+Source = "https://github.com/djoezeke/xodex"
+
+[project.optional-dependencies]
+standard = ["rich>=14.1.0"]
+
+[dependency-groups]
+dev = [
+  # We add xodex[standard] so `uv sync` considers the extras.
+  "xodex[standard]",
+  "ruff",            # format & check
+  "pytest",          # testing
+  "twine",           # check dist
+]
+docs = [
+  "mkdocs==1.6.1",
+  "mkdocs-material==9.6.13",
+  "mkdocstrings-python==1.16.12",
+  "mkdocs-llmstxt==0.2.0",
+]
+
+[tool.uv]
+package = true
+default-groups = ["dev", "docs"]
+
+[tool.uv.build-backend]
+module-name = "xodex"
+module-root = ""
+source-include = ["*.md"]
+source-exclude = ["tests/"]
+wheel-exclude = ["*.bin"]
+namespaces = false
+
+# Configure Ruff's linting rules
+[tool.ruff]
+src = ["xodex", "tests"]
+fix = true
+show-fixes = true
+output-format = "full"
+line-length = 120
+
+# Further linting configurations
+[tool.ruff.lint]
+unfixable = [
+  "F841", # Example: prevent fixing of unused local variables
+]
+select = [
+  "B",  # flake8-bugbear
+  "E",  # pycodestyle error
+  "F",  # pyflakes
+  "I",  # isort
+  "UP", # pyupgrade
+  "W",  # pycodestyle warning
+]
+ignore = [
+  "E501", # ignore line length errors
+]
+
+
+[tool.ruff.lint.isort]
+force-single-line = true
+order-by-type = false
+combine-as-imports = true
+split-on-trailing-comma = true
+known-first-party = ["xodex"]
+known-third-party = ["pygame"]
+section-order = [
+  "future",
+  "standard-library",
+  "third-party",
+  "first-party",
+  "local-folder",
+]
+
+# Configure Ruff's formatter
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
