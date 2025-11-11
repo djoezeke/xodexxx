@@ -38,6 +38,10 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Install Xodex dependencies
+        run: |
+          uv sync --frozen
+
       - name: Xodex Ruff Formatting.
         run: uv run --dev ruff format --check --diff
 
