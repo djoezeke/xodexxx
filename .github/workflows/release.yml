@@ -26,9 +26,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
           enable-cache: true
 
-      - name: Install Package dependencies
+      - name: Install Xodex dependencies
         run: |
-          uv sync --frozen
+          uv sync
 
       - name: Build distributions
         run: |
