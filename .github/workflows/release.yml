@@ -24,11 +24,15 @@ jobs:
         uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.python-version }}
-          enable-cache: true
 
-      - name: Install Package dependencies
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Xodex dependencies
         run: |
-          uv sync --frozen
+          uv sync
 
       - name: Build distributions
         run: |

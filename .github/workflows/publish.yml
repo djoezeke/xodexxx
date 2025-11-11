@@ -36,9 +36,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install Package dependencies
+      - name: Install Xodex dependencies
         run: |
-          uv sync --frozen
+          uv sync
 
       - name: Build distributions & Docs
         run: |
