@@ -75,10 +75,11 @@ jobs:
         with:
           subject-path: "dist/*"
 
-      - name: Create Release
+      - name: Create Tag Release
         uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
         with:
-          draft: true
+          # draft: true
           name: Xodex ${{ steps.ver.outputs.VER }} release
           tag_name: ${{ github.ref_name }}
           prerelease: ${{ contains(steps.ver.outputs.VER, 'dev') }}
