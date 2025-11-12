@@ -1,6 +1,6 @@
 # Project information
 site_name: xodexx
-site_url: https:/djoezeke.github.io/xodexx
+site_url: https://djoezeke.github.io/xodexx
 site_dir: site/xodexx
 site_author: djoezeke
 site_description: xodexx is an extensible, lightweight Python game engine built on Pygame. This documentation includes usage guides, a quickstart, and an API reference for extending the engine.
