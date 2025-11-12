@@ -11,12 +11,13 @@ on:
 
 jobs:
   release-build:
-    name: Build Xodex.
+    name: Build Xodex Distributions.
 
     outputs:
       artifact-id: ${{ steps.upload-artifact.outputs.artifact-id }}
 
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v5
 
@@ -44,8 +45,8 @@ jobs:
           if-no-files-found: error
 
   release:
-    name: Create Release
-    runs-on: ubuntu-latest
+    name: Create Xodex Release.
+
     needs:
       - release-build
 
@@ -54,22 +55,24 @@ jobs:
       contents: write
       attestations: write
 
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Download all artifacts
+      - name: Download Release Artifacts
         uses: actions/download-artifact@v6
         with:
           artifact-ids: ${{ needs.release-build.outputs.artifact-id }}
           path: dist/
           merge-multiple: true
 
-      - name: Get version
+      - name: Get Release Version
         id: ver
         run: echo "VER=${GITHUB_REF_NAME#'refs/tags/'}" >> $GITHUB_OUTPUT
 
-      - name: Generate release attestation
+      - name: Generate Release Attestation
         uses: actions/attest-build-provenance@v3.0.0
         with:
           subject-path: "dist/*"
