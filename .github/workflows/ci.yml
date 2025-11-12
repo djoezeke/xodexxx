@@ -47,21 +47,21 @@ jobs:
       - name: Xodex Pytest Unittesting.
         run: uv run --dev pytest
 
-      - name: Build Xodex docs
-        run: |
-          uv run mkdocs build
+      # - name: Build Xodex docs
+      #   run: |
+      #     uv run mkdocs build
 
-      - name: Upload documentation
-        uses: actions/upload-artifact@v4
-        with:
-          name: documentation
-          path: site/
+      # - name: Upload documentation
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: documentation
+      #     path: site/
 
   docs-publish:
     name: Publish Documentation to GitHub Pages.
 
-    needs:
-      - build
+    # needs:
+    #   - build
 
     permissions:
       contents: write
@@ -69,25 +69,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download documentation 📚 artifacts
-        uses: actions/download-artifact@v5
-        with:
-          name: documentation
-          path: site/
+      - uses: actions/checkout@v5
+
+      # - name: Download documentation 📚 artifacts
+      #   uses: actions/download-artifact@v5
+      #   with:
+      #     name: documentation
+      #     path: site/
 
       # - name: Configure Git Credentials
       #   run: |
       #     git config user.name github-actions[bot]
       #     git config user.email 41898282+github-actions[bot]@users.noreply.github.com
 
-      # - name: Install uv
-      #   uses: astral-sh/setup-uv@v6
-      #   with:
-      #     python-version: "3.13"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.13"
 
-      # - name: Install dependencies
-      #   run: |
-      #     uv sync
+      - name: Install dependencies
+        run: |
+          uv sync
 
       - name: Publish documentation 📚 to GitHub Pages
         run: uv run mkdocs gh-deploy --force
