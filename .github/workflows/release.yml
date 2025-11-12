@@ -5,7 +5,9 @@ on:
     # Sequence of patterns matched against refs/tags
     tags:
       # Publish on any tag starting with a `v`, e.g., v1.0.0
-      - "v*" # Push events to matching v*, i.e. v1.0.0
+      - "v*" # Push events to matching v*, i.e. v1.0.
+
+    # branches: "release/**"
 
 jobs:
   release-build:
@@ -14,30 +16,27 @@ jobs:
     outputs:
       artifact-id: ${{ steps.upload-artifact.outputs.artifact-id }}
 
-    strategy:
-      matrix:
-        python-version: ["3.13"]
-        os: [ubuntu-latest]
-
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python 3.13
         uses: astral-sh/setup-uv@v6
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.13"
           enable-cache: true
 
       - name: Install Xodex dependencies
         run: |
           uv sync
 
-      - name: Build distributions
+      - name: Build Xodex distributions
         run: |
           uv build
           uv run twine check dist/*
-      - uses: actions/upload-artifact@v4
+
+      - name: Upload Xodex distributions
+        uses: actions/upload-artifact@v4
         id: upload-artifact
         with:
           name: dist
